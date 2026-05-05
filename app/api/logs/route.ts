@@ -121,15 +121,6 @@ export async function GET(request: NextRequest) {
   filterFieldPlain("error", "error");
   filterFieldPlain("_source", "source");
 
-  const dateFrom = searchParams.get("dateFrom");
-  const dateTo = searchParams.get("dateTo");
-  if (dateFrom) {
-    entries = entries.filter((e) => e.timestamp >= dateFrom);
-  }
-  if (dateTo) {
-    entries = entries.filter((e) => e.timestamp <= dateTo + "T23:59:59Z");
-  }
-
   const search = searchParams.get("search");
   if (search) {
     const lower = search.toLowerCase();

@@ -10,8 +10,7 @@ const DEFAULT_FILTERS: Filters = {
   status: "",
   method: "",
   action: "",
-  dateFrom: "",
-  dateTo: "",
+  userid: "",
   source: "",
   email: "",
 };
@@ -43,10 +42,10 @@ export default function HomePage() {
     if (f.status) params.set("status", f.status);
     if (f.method) params.set("method", f.method);
     if (f.action) params.set("action", f.action);
-    if (f.dateFrom) params.set("dateFrom", f.dateFrom);
-    if (f.dateTo) params.set("dateTo", f.dateTo);
     if (f.source) params.set("source", f.source);
-    if (userId) params.set("userid", userId);
+    // userid from direct field or resolved from email
+    const effectiveUserId = userId ?? (f.userid || null);
+    if (effectiveUserId) params.set("userid", effectiveUserId);
     params.set("page", String(p));
     params.set("pageSize", "50");
     return `/api/logs?${params.toString()}`;
